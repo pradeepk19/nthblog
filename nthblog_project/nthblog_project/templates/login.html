@@ -1,0 +1,28 @@
+<html>
+<head>
+<title></title>
+{% include 'cdnlines.html' %}
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+           {% include 'alerts.html' %}
+            <form method="POST">
+                {% csrf_token %}
+                <label>Enter Username:</label>
+                <input type="text" name="username" class="form-control">
+
+                <label>Enter Password:</label>
+                <input type="password" name="password" class="form-control">
+                <center>
+                <input type="submit" value="Login"class="btn btn-success">
+                <input type="reset" value="Clear" class="btn btn-danger">
+                </center>
+            </form>
+            <center><a href="{% url 'register' %}">Create New Account?</a></center>
+        </div>
+    </div>
+</div>
+</body>
+</html>

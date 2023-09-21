@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">NTH Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'post_list' %}">Posts</a>
+        </li>
+      </ul>
+      <form class="d-flex" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+    <a style="color: white;">Hello, {{ request.user|capfirst }} </a> &nbsp;
+    <a style="color: white;" href="{% url 'post_create' %}">Create Post</a>
+    <a style="color: white;" href="{% url 'logout' %}">Logout</a>
+    <a style="color: white;" href="{% url 'post_favourite_list' %}">Favourite</a>
+  </div>
+</nav>
+</body>
+</html>

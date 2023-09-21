@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+        <div class="container-fluid">
+            <div class="row">
+                        <form method="POST">
+                        {% csrf_token %}
+                            {{ comment_form.as_p }}
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+            </div>
+        </div>
+
+                {{ comments.count }} Comment{{ comments|pluralize }}
+                {% for comment in comments %}
+                    <blockquote class="blockquote">
+                        <p>{{ comment.content }}</p>
+                        <footer class="blockquote-footer"> by <cite title="Source Title">{{ comment.user|capfirst }}</cite>
+                        <button class="reply-btn btn btn-primary btn-outline-dark text-white" type="button" name="button">Reply</button>
+                        </footer>
+                    </blockquote>
+
+                    <div class="replied-comment-section container" style="display: None">
+                    {% for reply in comment.replies.all  %}
+                        <blockquote class="blockquote">
+                            <p>{{ reply.content }}</p>
+                            <footer class="blockquote-footer"> by <cite title="Source Title">{{ reply.user|capfirst }}</cite>
+                            </footer>
+                        </blockquote>
+                     {% endfor %}
+                    <div class="row form-group">
+                        <form method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            {{ comment_form.as_p }}
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                        </form>
+                    </div>
+                    </div>
+                {% endfor %}
+</body>
+</html>

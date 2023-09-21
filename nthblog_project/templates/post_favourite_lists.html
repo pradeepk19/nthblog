@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container-fluid" style="margin-left: 7%">
+    <div class="row">
+        {% for i in favourite_posts %}
+            <div class="col-md-5 img-thumbnail" style="margin: 5px;">
+                <h4><a href="{{ i.get_absolute_url }}">{{ i.title|capfirst }}</a></h4>
+                Author: {{ i.author }}
+                <small style="float: right"> Posted On: {{ i.created }}</small>
+                <p>{{ i.body }}</p>
+            </div>
+        {% empty  %}
+        <h2>No Favourite Posts Found</h2>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

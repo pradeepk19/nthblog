@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'alerts.html' %}
+<div class="container-fluid" style="margin-left: 7%">
+    <div class="row">
+        {% for i in posts %}
+            <div class="col-md-5 img-thumbnail" style="margin: 5px;">
+                <h4><a href="{{ i.get_absolute_url }}">{{ i.title|capfirst }}</a></h4>
+                Author: {{ i.author }}
+                <small style="float: right"> Posted On: {{ i.created }}</small>
+                <p>{{ i.body }}</p>
+            </div>
+         {% empty %}
+        <div class="container-fluid">
+            <h2>No Posts Found having search query "{{ request.POST.q }}"</h2>
+        </div>
+        {% endfor %}
+    </div>
+
+
+  <ul class="pagination">
+    {% if posts.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+        </li>
+    {% endif %}
+    {% for p in posts.paginator.page_range %}
+        {% if posts.number == p %}
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+
+    {% if posts.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+        </li>
+    {% endif %}
+  </ul>
+
+
+
+
+</div>
+{% endblock %}
